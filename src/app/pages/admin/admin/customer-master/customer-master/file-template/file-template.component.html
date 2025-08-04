@@ -1,0 +1,22 @@
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Select Type
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="select" nzShowSearch style="width: 100%" [(ngModel)]="SELECTED"
+                    (ngModelChange)="getColumn()">
+                    <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="24" style="text-align: right;">
+        <button nz-button nzType="primary" class="mr-10" [appExport]="columns" [isCustomerMaster]="true"
+            [fileName]="fileName" nz-tooltip nzTooltipTitle="Download Excel"><i nz-icon nzType="file-excel"
+                nzTheme="outline"></i></button>
+    </div>
+
+</div>

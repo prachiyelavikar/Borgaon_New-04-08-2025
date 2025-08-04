@@ -1,0 +1,32 @@
+<nz-table #testfilePreview [nzData]="data" nzBordered [nzLoading]="loading" style="table-layout: auto !important;">
+
+    <thead>
+        <tr>
+            <th *ngFor="let column of columns">{{column}}</th>
+            <!-- <th [nzWidth]="'100px'">Unique ID</th>
+            <th [nzWidth]="'400px'">Name</th>
+            <th>DOB</th>
+            <th>Gender</th>
+            <th>PAN</th>
+            <th>Aadhaar</th> -->
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let data of testfilePreview.data" [class.error]="data.error">
+            <td *ngFor="let column of columns">{{data[column]}}</td>
+            <!-- <td>{{data.UID}}</td>
+            <td>{{data.NAME}}</td>
+            <td>{{data.DOB}}</td>
+            <td>
+                <span *ngIf="data.GENDER== 'F'">Female</span>
+                <span *ngIf="data.GENDER== 'M'">Male</span>
+                <span *ngIf="data.GENDER== 'O'">Other</span>
+            </td>
+            <td>{{data.PAN}}</td>
+            <td>{{data.AADHAAR}}</td> -->
+        </tr>
+
+    </tbody>
+
+</nz-table>

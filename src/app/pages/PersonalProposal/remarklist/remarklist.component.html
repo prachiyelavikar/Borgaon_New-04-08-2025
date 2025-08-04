@@ -1,0 +1,51 @@
+<div nz-row>
+    <div nz-col nzSpan="24" >
+        <nz-table nzBordered #table nzShowSizeChanger="false"  [nzFrontPagination]="false"
+            >
+            <thead>
+                <tr>
+                    <th *ngFor="let column of columns">{{column[1]}}</th>
+                    <!-- <th></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr > 
+                    <!-- *ngFor="let data of table.data" -->
+                    <td>
+                        <!-- *ngFor="let column of columns"  -->
+                        <!-- {{data[column[0]]}} -->
+
+                    </td>
+                    <td>
+                        <!-- *ngFor="let column of columns"  -->
+                        <!-- {{data[column[0]]}} -->
+
+                    </td>
+                    <td>
+                        <!-- *ngFor="let column of columns"  -->
+                        <!-- {{data[column[0]]}} -->
+
+                    </td>
+
+
+                    <td>
+                        <input nz-input name="remark" type="text" [(ngModel)]="data.REMARK" required />
+                    </td>
+                                         
+
+                    </tr>
+            </tbody>
+        </nz-table>
+
+
+
+
+
+        <button type="button" class="ant-btn ant-btn-primary"  nz-button nz-dropdown
+            style="margin-top: 22px;
+            margin-left: 100%;
+        "(click)="save(true)">
+        <!-- *ngIf="!data.ID" -->
+        <span>{{'user.savebutton'| translate}}</span></button>
+    </div>
+</div>

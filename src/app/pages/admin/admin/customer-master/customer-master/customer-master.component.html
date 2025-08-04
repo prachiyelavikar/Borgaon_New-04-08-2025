@@ -1,0 +1,115 @@
+<button nz-button nz-dropdown nzType="primary" [nzDropdownMenu]="menu" class="mr-10">Bulk Upload<i nz-icon
+    nzType="down"></i></button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <!-- <li nz-menu-item>
+      <a (click)="openMultiDrawer()">Upload Multiple Files</a>
+    </li> -->
+    <li nz-menu-item>
+      <a (click)="openPersonalDrawer()">Upload Personal File</a>
+    </li>
+    <li nz-menu-item>
+      <a (click)="openIncomeDrawer()">Upload Income File</a>
+    </li>
+    <li nz-menu-item>
+      <a (click)="openFinancialDrawer()">Upload Financial File</a>
+    </li>
+    <li nz-menu-item>
+      <a (click)="openPropertyDrawer()">Upload Property File</a>
+    </li>
+    <li nz-menu-item>
+      <a (click)="openCreditDrawer()">Upload Credit File</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>
+
+<button nz-button class="mr-10" (click)="downloadFileTemp()">Donwload File
+  Template</button>
+
+<button nz-button class="mr-10" (click)="openDrawer('Add New Column', addColumnTemplate)">Add new columns</button>
+
+<button nz-button class="mr-10" (click)="openDrawer('Table Mapping', tableMapping)">Table Mapping</button>
+
+<button nz-button (click)="openDrawer('Fields Mapping', fieldMapping)">Fields Mapping</button>
+
+<!-- <app-personal-table-template [data]="customerData" [loading]="tableLoading"></app-personal-table-template> -->
+
+<nz-table #testfilePreview [nzData]="customerData" nzBordered [nzLoading]="tableLoading">
+
+  <thead>
+    <tr>
+      <th>Edit</th>
+      <th>Customer ID</th>
+      <th [nzWidth]="'100px'">Unique ID</th>
+      <th [nzWidth]="'400px'">Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>PAN</th>
+      <th>Aadhaar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let data of testfilePreview.data" [class.error]="data.error">
+      <td><a><i nz-icon nzType="edit" (click)="viewCustomerData(data)"></i></a></td>
+      <td>{{data.CID}}</td>
+      <td>{{data.UID}}</td>
+      <td>{{data.NAME}}</td>
+      <td>{{data.DOB}}</td>
+      <td>
+        <span *ngIf="data.GENDER== 'F'">Female</span>
+        <span *ngIf="data.GENDER== 'M'">Male</span>
+        <span *ngIf="data.GENDER== 'O'">Other</span>
+      </td>
+      <td>{{data.PAN}}</td>
+      <td>{{data.AADHAAR}}</td>
+    </tr>
+
+  </tbody>
+
+</nz-table>
+
+<ng-template #personalDrawer let-drawerRef="drawerRef">
+  <app-customer-personal (close)="closeDrawer()"></app-customer-personal>
+</ng-template>
+
+<ng-template #incomeDrawer>
+  <app-income-master (close)="closeDrawer()"></app-income-master>
+</ng-template>
+
+<ng-template #financialDrawer>
+  <app-customer-financial (close)="closeDrawer()"> </app-customer-financial>
+</ng-template>
+
+<ng-template #propertyDrawer>
+  <app-customer-property (close)="closeDrawer()"></app-customer-property>
+</ng-template>
+
+<ng-template #creditDrawer>
+  <app-credit-master (close)="closeDrawer()"></app-credit-master>
+</ng-template>
+
+<ng-template #multiDrawer let-drawerRef="drawerRef">
+  <app-customer-multi></app-customer-multi>
+</ng-template>
+
+<ng-template #fileTemplate>
+  <app-file-template (close)="closeDrawer()"></app-file-template>
+</ng-template>
+
+<ng-template #addColumnTemplate>
+  <app-add-column (close)="closeDrawer()"></app-add-column>
+</ng-template>
+
+<ng-template #tableMapping>
+  <app-table-mapping (close)="closeDrawer()"></app-table-mapping>
+</ng-template>
+
+
+<ng-template #fieldMapping>
+  <app-field-mapping (close)="closeDrawer()"></app-field-mapping>
+</ng-template>
+
+<ng-template #view>
+  <app-edit [CID]="CID"></app-edit>
+</ng-template>

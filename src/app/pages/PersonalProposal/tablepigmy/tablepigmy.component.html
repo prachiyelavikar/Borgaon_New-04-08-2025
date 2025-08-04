@@ -1,0 +1,72 @@
+<nz-table [nzShowPagination]="false" style="height: 250px;" class="my-scroll no-wrap1 overflow:auto" nzBordered #table [nzFrontPagination]="false" [nzData]="pigmyAccdata" [nzLoading]="loadingRecords2" [nzTotal]="totalRecords" [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize">
+    <thead>
+        <tr>
+            <!-- <th>{{'gincomeinfo.th1'|translate }}</th>
+            <th>{{'gfinancialinfo.ttl11'|translate }}</th>
+            <th>{{'gfinancialinfo.ttp1'|translate }}</th>
+            <th>{{'gfinancialinfo.ttp2'|translate }}</th> -->
+            <th>{{'gcreditinfo.th1'|translate }}</th>
+            <th>Receipt No.</th>
+            <!-- <th>{{'gcreditinfo.th2'|translate }}</th> -->
+            <th>Account No.</th>
+            <th>Amount</th>
+            <th>Interest Rate</th>
+            <th>Maturity/Due</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of table.data">
+
+            <td>
+                <a *ngIf="(roleId == '5' && CURRENT_STAGE_ID==8 )||(roleId == '4' && (CURRENT_STAGE_ID == 8 || CURRENT_STAGE_ID == 9))||(roleId == '12' && CURRENT_STAGE_ID==19)||(roleId == '14' && CURRENT_STAGE_ID==14)||(roleId == '13' && CURRENT_STAGE_ID==20)" nzJustify="end"
+                    style="margin-right: 10px;" (click)="deletePigmyAcc(data)"><i nz-icon
+                        nzType="delete"></i></a>
+                <a *ngIf="(roleId == '5' && CURRENT_STAGE_ID==8 )||(roleId == '4' && (CURRENT_STAGE_ID == 8 || CURRENT_STAGE_ID == 9))||(roleId == '12' && CURRENT_STAGE_ID==19)||(roleId == '14' && CURRENT_STAGE_ID==14)||(roleId == '13' && CURRENT_STAGE_ID==20)" nzJustify="end"
+                    (click)="Pedit(data,i)"><i nz-icon nzType="edit"></i></a>
+            </td>
+
+            <td> {{data.RECEIPT_NO}} </td>
+            <td> {{data['ACC_NO']}}</td>
+            <td> {{data['ACC_AMOUNT']}} </td>
+            <td> {{data['INTEREST_RATE']}} </td>
+            <td> {{data['MATURITY_DUE'] }} </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <b>Total</b>
+            </td>
+            <td>
+                <b>{{totalCountOfReceiptNo()}}</b>
+
+            </td>
+            <td>
+
+
+            </td>
+            <td>
+                <b>{{totalIncome1()}}</b>
+            </td>
+            <td>
+                <b>{{highestInterest() | number: '1.2-2'}}</b>
+
+            </td>
+            <td>
+                <b>{{ formattedEarliestMaturityDate()}}</b>
+            </td>
+
+
+
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100%)', overflow: 'auto', 'padding-bottom': '53px' }" [nzClosable]="true" [nzMask]="true" [nzMaskClosable]="false" [nzWidth]="850" [nzVisible]="drawerVisible8" [nzTitle]="drawerTitle8" (nzOnClose)="drawerClose8()"
+    (nzKeyboard)="true">
+    <app-financialpigmydeposit [drawerClose8]="closeCallback8" [CURRENT_STAGE_ID]="CURRENT_STAGE_ID" [PROPOSAL_ID]="PROPOSAL_ID" [extraApplicantInformation]="extraApplicantInformation" [data5]="drawerData8" [addressinfoCurrent]="FinanceData" (demo)="saveWorkdata25()">
+    </app-financialpigmydeposit>
+</nz-drawer>

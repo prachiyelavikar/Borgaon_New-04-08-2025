@@ -1,0 +1,1 @@
+ *ngIf="(roleId == '5' && CURRENT_STAGE_ID==8 )||(roleId == '4' && (CURRENT_STAGE_ID == 8 || CURRENT_STAGE_ID == 9))||(roleId == '12' && CURRENT_STAGE_ID==19)||(roleId == '14' && CURRENT_STAGE_ID==14)||(roleId == '13' && CURRENT_STAGE_ID==20)"

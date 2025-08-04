@@ -1,0 +1,82 @@
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Select Mapping
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="select" nzShowSearch style="width: 100%" [(ngModel)]="SELECTED"
+                    (ngModelChange)="getFields()">
+                    <nz-option *ngFor="let option of options" [nzValue]="option.ID" [nzLabel]="option.NAME">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Source Field
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="SRC_FIELD" nzShowSearch style="width: 100%" [(ngModel)]="SRC_FIELD"
+                    (ngModelChange)="getFields()">
+                    <nz-option *ngFor="let field of src_field_list" [nzValue]="field.Field" [nzLabel]="field.Field">
+                    </nz-option>
+                </nz-select>
+                <!-- <input nz-input name="name" type="text" [(ngModel)]="SRC_FIELD" /> -->
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="2"></div>
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Destination Field
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="DEST_FIELD" nzShowSearch style="width: 100%" [(ngModel)]="DEST_FIELD"
+                    (ngModelChange)="getFields()">
+                    <nz-option *ngFor="let field of dest_field_list" [nzValue]="field.Field" [nzLabel]="field.Field">
+                    </nz-option>
+                </nz-select>
+                <!-- <input nz-input name="type" type="text" [(ngModel)]="DEST_FIELD" /> -->
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="24" style="text-align: right;">
+        <button nz-button nzType="primary" class="mr-10" (click)="addFieldMapping()"><i nz-icon nzType="plus"></i> Add
+            New Field Mapping</button>
+    </div>
+
+</div>
+
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-table #columnDetails [nzData]="columns" nzBordered [nzLoading]="tableLoading">
+
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Source Field</th>
+                    <th>Destination Field</th>
+                    <!-- <th>Mapping Tables</th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let data of columnDetails.data;index as i">
+                    <td>{{data.ID}}</td>
+                    <td>{{data.SRC_FIELD}}</td>
+                    <td>{{data.DEST_FIELD}}</td>
+                    <!-- <td>{{data.MAPPING_ID}}</td> -->
+                </tr>
+
+            </tbody>
+
+        </nz-table>
+    </div>
+
+</div>

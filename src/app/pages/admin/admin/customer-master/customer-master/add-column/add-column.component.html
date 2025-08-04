@@ -1,0 +1,72 @@
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Select Type
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="select" nzShowSearch style="width: 100%" [(ngModel)]="SELECTED"
+                    (ngModelChange)="getColumns()">
+                    <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Field Name
+            </nz-form-label>
+            <nz-form-control>
+                <input nz-input name="name" type="text" [(ngModel)]="NAME" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="2"></div>
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Field Type
+            </nz-form-label>
+            <nz-form-control>
+                <input nz-input name="type" type="text" [(ngModel)]="TYPE" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="24" style="text-align: right;">
+        <button nz-button nzType="primary" class="mr-10" (click)="addColumn()"><i nz-icon nzType="plus"></i> Add New
+            Column</button>
+    </div>
+
+</div>
+
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-table #columnDetails [nzData]="columns" nzBordered [nzLoading]="tableLoading">
+
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Field Name</th>
+                    <th>Data Type</th>
+                    <th>Add UI</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let data of columnDetails.data;index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{data.Field}}</td>
+                    <td>{{data.Type}}</td>
+                    <td><a>Add UI</a></td>
+                </tr>
+
+            </tbody>
+
+        </nz-table>
+    </div>
+
+</div>

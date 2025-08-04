@@ -1,0 +1,11 @@
+input[type="file"] {
+  display: none;
+}
+
+.upload{
+  cursor: pointer;
+}
+
+.mr-10{
+  margin-right: 10px;
+}

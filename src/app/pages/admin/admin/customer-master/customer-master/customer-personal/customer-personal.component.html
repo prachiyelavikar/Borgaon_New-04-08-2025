@@ -1,0 +1,125 @@
+<input type="file" id="fileUpload" [accept]="acceptedFileFormats" (change)="bulkUpload($event.target.files.item(0))"
+  hidden>
+
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <button nz-button nzType="primary" class="mr-10" (click)="fileUpload()"><i nz-icon nzType="upload"></i>Upload
+      File</button>
+    <!-- <button *ngIf="!downloadTestFile" nz-button nzType="default" (click)="getTestData()">Get Test File</button> -->
+  </div>
+
+  <!-- <div nz-col nzSpan="12">
+    <nz-card *ngIf="uploadedFile && !closedCard" style="width:300px;" nzTitle="File Information" [nzExtra]="closeTemp">
+      <p>File Name : <b>{{uploadedFile.name}}</b></p>
+      <p>File Size : <b>{{fileSizeParser(uploadedFile.size)}}</b></p>
+      <p>Last Modified Date : <b>{{uploadedFile.lastModifiedDate}}</b></p>
+    </nz-card>
+
+    <ng-template #closeTemp>
+      <span><i nz-icon nzType="close" nzTheme="outline" (click)="closeCard()"></i></span>
+    </ng-template>
+  </div> -->
+
+</div>
+
+<nz-spin [nzSpinning]="loadPreviewTable">
+  <div *ngIf="preview" nz-row style="margin-top: 20px;margin-bottom: 30px;">
+
+    <div nz-col nzSpan="14" class="my-box">
+      <app-personal-table-template [data]="fileData" [loading]="loadPreviewTable"
+        [columns]="columns"></app-personal-table-template>
+    </div>
+
+    <div nz-col nzSpan="1"></div>
+
+    <div nz-col nzSpan="9" style="overflow-y: scroll;height: 460px;" class="my-box">
+
+      <div nz-row>
+        <div nz-col nzSpan="24" *ngFor="let errorCard of errorList;index as i"
+          style="display: flex;justify-content: center;">
+          <nz-card style="width:320px; margin-top: 20px;margin-bottom: 20px;"
+            [nzActions]="[actionskip, actionOverride]">
+            <nz-card-meta [nzTitle]="errorCard.title" [nzDescription]='errorCard.description'></nz-card-meta>
+          </nz-card>
+
+          <ng-template #actionskip>
+            <button nz-button (click)="skipOne(errorCard.exact_row,i)">Skip</button>
+          </ng-template>
+
+          <ng-template #actionOverride>
+            <button nz-button nzType="primary" nzDanger (click)="overrideOne(errorCard.exact_row,i)">Override</button>
+          </ng-template>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</nz-spin>
+
+
+<div *ngIf="downloadTestFile" style="margin-top: 20px;margin-bottom: 30px;">
+  <button nz-button nzType="primary" class="mr-10" [appExport]="fileDataTest" fileName="Customer List" nz-tooltip
+    nzTooltipTitle="Excel Report"><i nz-icon nzType="file-excel" nzTheme="outline"></i></button>
+
+  <button nz-button nzType="primary" class="mr-10" nz-tooltip nzTooltipTitle="Re generate" (click)="getTestData()"><i
+      nz-icon nzType="sync" nzTheme="outline"></i></button>
+
+  <button nz-button nzType="default" (click)="closeTest()">Close Test</button>
+
+  <!-- <nz-table #testfilePreview [nzData]="fileDataTest" nzBordered [nzLoading]="loadTestTable">
+
+    <thead>
+      <tr>
+        <th [nzWidth]="'200px'">Customer ID</th>
+        <th [nzWidth]="'100px'">Unique ID</th>
+        <th [nzWidth]="'400px'">Name</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>PAN</th>
+        <th>Aadhaar</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let data of testfilePreview.data">
+        <td>{{data.CID}}</td>
+        <td>{{data.UID}}</td>
+        <td>{{data.NAME}}</td>
+        <td>{{data.DOB}}</td>
+        <td>
+          <span *ngIf="data.GENDER== 'F'">Female</span>
+          <span *ngIf="data.GENDER== 'M'">Male</span>
+          <span *ngIf="data.GENDER== 'O'">Other</span>
+        </td>
+        <td>{{data.PAN}}</td>
+        <td>{{data.AADHAAR}}</td>
+      </tr>
+
+    </tbody>
+
+  </nz-table> -->
+
+  <app-personal-table-template [data]="fileDataTest" [loading]="loadTestTable"></app-personal-table-template>
+
+
+</div>
+
+
+<div class="footer" *ngIf="preview">
+
+  <span *ngIf="errorList.length == 0">
+    <button nz-button class="mr-10" *ngIf="mode == 1" (click)="cancel()">Cancel</button>
+    <button nz-button nzType="primary" *ngIf="mode == 1" (click)="save()">Save & Close</button>
+    <!-- <button nz-button class="mr-10" *ngIf="mode == 2">Skip & Continue</button>
+    <button nz-button nzType="primary" *ngIf="mode == 2">Save & Continue</button> -->
+  </span>
+
+
+  <span *ngIf="errorList.length > 0">
+    <button nz-button class="mr-10" (click)="skipAll()">Skip All</button>
+    <button nz-button nzType="primary" nzDanger (click)="overrideAll()">Override All</button>
+  </span>
+
+</div>

@@ -1,0 +1,128 @@
+<div nz-row>
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Source Table
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="SRC_TABLE" nzShowSearch style="width: 100%" [(ngModel)]="SRC_TABLE">
+                    <nz-option *ngFor="let field of src_table_list" [nzValue]="field.NAME" [nzLabel]="field.NAME">
+                    </nz-option>
+                </nz-select>
+                <!-- <input nz-input name="SRC_TABLE" type="text" [(ngModel)]="SRC_TABLE" /> -->
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="2"></div>
+
+    <div nz-col nzSpan="11">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Destination Type
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="DEST_TABLE" nzShowSearch style="width: 100%" [(ngModel)]="DEST_TABLE">
+                    <nz-option *ngFor="let field of dest_table_list" [nzValue]="field.NAME" [nzLabel]="field.NAME">
+                    </nz-option>
+                </nz-select>
+                <!-- <input nz-input name="DEST_TABLE" type="text" [(ngModel)]="DEST_TABLE" /> -->
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="24">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Is Single
+            </nz-form-label>
+            <nz-form-control>
+                <nz-switch name="status" [(ngModel)]="IS_SINGLE"></nz-switch>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+
+    <div nz-col nzSpan="7">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Dependency Table
+            </nz-form-label>
+            <nz-form-control>
+                <nz-select name="DEST_DEP_TABLE" nzShowSearch style="width: 100%" [(ngModel)]="DEST_DEP_TABLE">
+                    <nz-option *ngFor="let field of dest_table_list" [nzValue]="field.NAME" [nzLabel]="field.NAME">
+                    </nz-option>
+                </nz-select>
+                <!-- <input nz-input name="DEST_DEP_TABLE" type="text" [(ngModel)]="DEST_DEP_TABLE" /> -->
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div nz-col nzSpan="1"></div>
+    <div nz-col nzSpan="7">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Dependency Field
+            </nz-form-label>
+            <nz-form-control>
+                <!-- <nz-select name="DEST_TABLE" nzShowSearch style="width: 100%" [(ngModel)]="DEST_TABLE">
+                    <nz-option *ngFor="let field of dest_table_list" [nzValue]="field.NAME" [nzLabel]="field.NAME">
+                    </nz-option>
+                </nz-select> -->
+                <input nz-input name="DEST_DEP_FIELD" type="text" [(ngModel)]="DEST_DEP_FIELD" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div nz-col nzSpan="1"></div>
+    <div nz-col nzSpan="8">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzNoColon>Dependency Mapped Field
+            </nz-form-label>
+            <nz-form-control>
+                <!-- <nz-select name="DEST_TABLE" nzShowSearch style="width: 100%" [(ngModel)]="DEST_TABLE">
+                    <nz-option *ngFor="let field of dest_table_list" [nzValue]="field.NAME" [nzLabel]="field.NAME">
+                    </nz-option>
+                </nz-select> -->
+                <input nz-input name="DEP_FIELD_NAME" type="text" [(ngModel)]="DEP_FIELD_NAME" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+
+
+
+    <div nz-col nzSpan="24" style="text-align: right;">
+        <button nz-button nzType="primary" class="mr-10" (click)="addMapping()"><i nz-icon nzType="plus"></i> Add New
+            Mapping</button>
+    </div>
+
+</div>
+
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <nz-table #columnDetails [nzData]="columns" nzBordered [nzLoading]="tableLoading">
+
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Source Table</th>
+                    <th>Destination Type</th>
+                    <th>Dependency Table</th>
+                    <th>Dependency Field</th>
+                    <th>Dependency Mapped Field</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let data of columnDetails.data;index as i">
+                    <td>{{data.ID}}</td>
+                    <td>{{data.SRC_TABLE}}</td>
+                    <td>{{data.DEST_TABLE}}</td>
+                    <td>{{data.DEST_DEP_TABLE}}</td>
+                    <td>{{data.DEST_DEP_FIELD}}</td>
+                    <td>{{data.DEP_FIELD_NAME}}</td>
+                </tr>
+
+            </tbody>
+
+        </nz-table>
+    </div>
+
+</div>
