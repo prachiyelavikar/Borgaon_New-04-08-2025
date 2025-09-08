@@ -1,4 +1,28 @@
 @page {
     size: 25cm 35.7cm;
-    margin: 5mm 5mm 5mm 5mm; /* change the margins as you want them to be. */
-  }
+    margin: 5mm 5mm 5mm 5mm;
+    /* change the margins as you want them to be. */
+}
+
+table {
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid gray;
+    height: 30px;
+}
+
+.thtd {
+    height: 30px;
+}
+
+th {
+    text-align: center;
+    font-size: 14px;
+}
+
+td {
+    padding-left: 5px;
+}

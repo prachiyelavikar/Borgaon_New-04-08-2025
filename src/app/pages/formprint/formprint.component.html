@@ -8368,7 +8368,7 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     <p>To</p>
                     <p>Branch : {{data.BRANCH_NAME}} </p>
                     <p>Subject : Loan Sanction Order</p>
-                    <p>Reference No : </p>
+                    <p>Reference No : {{data.REF_NO}}</p>
                 </div>
 
                 <table style="margin-top: 40px;">
@@ -8446,7 +8446,7 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     <p>To</p>
                     <p>Branch : {{data.BRANCH_NAME}} </p>
                     <p>Subject : Loan Sanction Order</p>
-                    <p>Reference No : </p>
+                    <p>Reference No :{{data.REF_NO}} </p>
                 </div>
 
                 <table style="margin-top: 40px;">
@@ -8523,7 +8523,7 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     <p>To</p>
                     <p>Branch : {{data.BRANCH_NAME}} </p>
                     <p>Subject : Loan Sanction Order</p>
-                    <p>Reference No : </p>
+                    <p>Reference No : {{data.REF_NO}}</p>
                 </div>
 
                 <table style="margin-top: 40px;">
@@ -8600,7 +8600,7 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     <p>To</p>
                     <p>Branch : {{data.BRANCH_NAME}} </p>
                     <p>Subject : Loan Sanction Order</p>
-                    <p>Reference No : </p>
+                    <p>Reference No : {{data.REF_NO}}</p>
                 </div>
 
                 <table style="margin-top: 40px;">
@@ -8766,7 +8766,7 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     <span *ngIf="browserLang == 'en'"> <b> {{data.BRANCH_NAME_EN}}</b> </span>
                 </div>
                 <div nz-col nzSpan="24">Subject : Loan Sanction Order</div>
-                <div nz-col nzSpan="24">Reference No :</div>
+                <div nz-col nzSpan="24">Reference No :{{data.REF_NO}}</div>
 
                 <table>
 
@@ -8849,7 +8849,8 @@ Account as on today here is a balance of Rs……(Rupees………..…………�
                     </tr>
                     <tr>
                         <td>Pre-payment penalty:</td>
-                        <td></td>
+                        <td>{{data.REMARK}}</td>
+                        <!-- <td></td> -->
                     </tr>
                 </table>
 

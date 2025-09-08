@@ -56,6 +56,7 @@ export class ProposalFilterwiseReportComponent implements OnInit {
     this.REPORT_PRAMS.PAGE_INDEX = 1;
     // this.getAllLists();
     this.getReport();
+    this.loadDashboardCounts();
   }
 
 
@@ -83,6 +84,10 @@ export class ProposalFilterwiseReportComponent implements OnInit {
 
     if(this.REPORT_PRAMS.REPORT_ID == "16"){
       this.REPORT_PRAMS.SORT_KEY ='PRAPOSAL_TYPE'
+    }
+
+    if (this.REPORT_PRAMS.REPORT_ID == "18") {
+      this.REPORT_PRAMS.SORT_KEY = 'BRANCH_ID'
     }
 
 
@@ -140,6 +145,10 @@ export class ProposalFilterwiseReportComponent implements OnInit {
       this.filter = ` ${this.REPORT_PRAMS.START_DATE ? "  AND CREATED_ON_DATETIME >= " + "'" + this.REPORT_PRAMS.START_DATE + "'" : ""} ${this.REPORT_PRAMS.END_DATE ? " AND CREATED_ON_DATETIME <= " + "'" + this.REPORT_PRAMS.END_DATE + "'" : ""} `
     }
 
+    if (this.REPORT_PRAMS.REPORT_ID == "18") {
+      this.filter = ` ${this.REPORT_PRAMS.START_DATE ? "  AND CREATED_ON_DATETIME >= " + "'" + this.REPORT_PRAMS.START_DATE + "'" : ""} ${this.REPORT_PRAMS.END_DATE ? " AND CREATED_ON_DATETIME <= " + "'" + this.REPORT_PRAMS.END_DATE + "'" : ""} `
+    }
+
     if (clear) {
       this.filter = ''
     }
@@ -162,6 +171,8 @@ export class ProposalFilterwiseReportComponent implements OnInit {
         this.tableLoading = false;
       }
     });
+
+    this.loadDashboardCounts();
   }
 
   getStageList() {
@@ -227,6 +238,10 @@ export class ProposalFilterwiseReportComponent implements OnInit {
 
     if (this.REPORT_PRAMS.REPORT_ID == "16") {
       this.getIncomeList();
+    }
+
+    if (this.REPORT_PRAMS.REPORT_ID == "18") {
+      this.getBranchList()
     }
   }
 
@@ -316,6 +331,45 @@ export class ProposalFilterwiseReportComponent implements OnInit {
     // });
     // doc.save('Report.pdf');
   }
+
+
+
+  tableData = [];
+
+loadDashboardCounts() {
+  this.api.getAllReportCounts().subscribe((res: any) => {
+    if (res.code === 200 && res.data) {
+      const data = res.data;
+      this.tableData = [
+        {
+          srNo: 1,
+          status: 'In Process',
+          count: data.IN_PROCESS_PRAPOSALS,
+          amount: data.IN_PROCESS_LOAN_AMOUNT
+        },
+        {
+          srNo: 2,
+          status: 'Disbursed',
+          count: data.DISBURSED_PRAPOSALS,
+          amount: data.DISBURSED_LOAN_AMOUNT
+        },
+        {
+          srNo: 3,
+          status: 'Rejected',
+          count: data.REJECTED_PRAPOSALS,
+          amount: data.REJECTED_LOAN_AMOUNT
+        },
+        {
+          srNo: 4,
+          status: 'Total',
+          count: data.TOTAL_PRAPOSALS,
+          amount: data.TOTAL_LOAN_AMOUNT
+        }
+      ];
+    }
+  });
+}
+
 
 
 }

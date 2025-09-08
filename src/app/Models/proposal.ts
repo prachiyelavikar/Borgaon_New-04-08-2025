@@ -102,4 +102,6 @@ export class Proposal {
   ASSISTANT_LO_ID:number;
   LOAN_OFFICER_ID:number;
   MATURITY_DATE:any
+  REF_NO :any;
+  REMARK : string;
 }

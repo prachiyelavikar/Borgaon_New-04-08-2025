@@ -1786,7 +1786,7 @@ export class ApiService {
     };
     return this.httpClient.post<number>(this.url + "praposal/updateProposalInfo", JSON.stringify(data), this.options);
   }
-  passToMainBranch2(SIGNATURE, COMMITTEE_NO, AMOUNT_IN_WORDS, TERM_OF_LOAN, TYPE_OF_INSTALLMENT, EMI_AMOUNT, RESOLUTION_NO, RATE_OF_INTEREST, SANCTION_DATE, SANCTION_AMOUNT, ProposalId: number, currentStageId: number, nextStageId: number, remark: string, userId: number, proposalFile: string, SANCTION_NOTE: string, MOROTORIUM: number,MEETING_NO:number, LOAN_RELEASE_DATE, DISBURSED_AMOUNT, LOAN_AMOUNT_IN_WORDS, LOAN_AMOUNT_IN_WORDSS, INSTALLMENT_COUNT, HAND_WRITTEN_AMT_IN_WORDS2, WRITTEN_TOTALAMT_WORDS, ACCOUNT_NO): Observable<number> {
+  passToMainBranch2(SIGNATURE, COMMITTEE_NO, AMOUNT_IN_WORDS, TERM_OF_LOAN, TYPE_OF_INSTALLMENT, EMI_AMOUNT, RESOLUTION_NO, RATE_OF_INTEREST, SANCTION_DATE, SANCTION_AMOUNT, ProposalId: number, currentStageId: number, nextStageId: number, remark: string, userId: number, proposalFile: string, SANCTION_NOTE: string, MOROTORIUM: number,MEETING_NO:number, LOAN_RELEASE_DATE, DISBURSED_AMOUNT, LOAN_AMOUNT_IN_WORDS, LOAN_AMOUNT_IN_WORDSS, INSTALLMENT_COUNT, HAND_WRITTEN_AMT_IN_WORDS2, WRITTEN_TOTALAMT_WORDS, ACCOUNT_NO,REF_NO,REMARK): Observable<number> {
     var data = {
       CURRENT_STAGE_ID: currentStageId,
       NEXT_STAGE_ID: nextStageId,
@@ -1816,7 +1816,11 @@ export class ApiService {
       INSTALLMENT_COUNT: INSTALLMENT_COUNT,
       HAND_WRITTEN_AMT_IN_WORDS2: HAND_WRITTEN_AMT_IN_WORDS2,
       WRITTEN_TOTALAMT_WORDS: WRITTEN_TOTALAMT_WORDS,
-      ACCOUNT_NO: ACCOUNT_NO
+      ACCOUNT_NO: ACCOUNT_NO,
+      REF_NO:REF_NO,
+      REMARK:REMARK
+      
+      
     };
     return this.httpClient.post<number>(this.url + "praposal/updateProposalInfo", JSON.stringify(data), this.options);
   }
@@ -4305,5 +4309,16 @@ export class ApiService {
     return this.httpClient.post<Grading>(this.url + "panGrading/get", JSON.stringify(data), this.options);
   }
   
+
+  getAllReportCounts(): Observable<any[]> {
+    const branchId = sessionStorage.getItem('branchId'); // Retrieve BRANCH_ID from sessionStorage
+    if (!branchId) {
+      throw new Error('Branch ID is not found in session storage');
+    }
+    const data = { BRANCH_ID: branchId };
+    const roleId = sessionStorage.getItem('ROLE_ID');
+    return this.httpClient.post<any[]>(this.url + "reports/getAllReportCounts", data, this.options);
+  }
+
 
 }

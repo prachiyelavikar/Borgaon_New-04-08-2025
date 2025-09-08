@@ -635,7 +635,7 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
       this.api.passToMainBranch2(this.data.SIGNATURE, this.data.COMMITTEE_NO, this.data.AMOUNT_IN_WORDS, this.data.TERM_OF_LOAN,
         this.data.TYPE_OF_INSTALLMENT, this.data.EMI_AMOUNT, this.data.RESOLUTION_NO, this.data.RATE_OF_INTEREST,
         this.data.SANCTION_DATE, this.data.SANCTION_AMOUNT, this.data.ID, this.data.CURRENT_STAGE_ID,
-        nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO)
+        nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO, this.data.REF_NO, this.data.REMARK)
         .subscribe(successCode => {
           // ////console.log(successCode)
 
@@ -690,7 +690,7 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
     this.api.passToMainBranch2(this.data.SIGNATURE, this.data.COMMITTEE_NO, this.data.AMOUNT_IN_WORDS, this.data.TERM_OF_LOAN,
       this.data.TYPE_OF_INSTALLMENT, this.data.EMI_AMOUNT, this.data.RESOLUTION_NO, this.data.RATE_OF_INTEREST,
       this.data.SANCTION_DATE, this.data.SANCTION_AMOUNT, this.data.ID, this.data.CURRENT_STAGE_ID,
-      nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO)
+      nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO, this.data.REF_NO, this.data.REMARK)
       .subscribe(successCode => {
         // ////console.log(successCode)
 
@@ -895,7 +895,7 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
         this.data.RESOLUTION_NO != undefined && this.data.RESOLUTION_NO != 0 &&
         this.data.RATE_OF_INTEREST != undefined &&
         this.data.SANCTION_AMOUNT != undefined && this.data.SANCTION_AMOUNT != 0 &&
-        this.data.SIGNATURE != undefined && this.data.SIGNATURE != ''
+        this.data.SIGNATURE != undefined && this.data.SIGNATURE != '' && this.data.REF_NO != undefined && this.data.REF_NO != 0 && this.data.REMARK != undefined && this.data.REMARK != ''
       ) {
         if (this.data.SANCTION_DATE[0] >= 0 && this.data.SANCTION_DATE[0] <= 9 && this.data.SANCTION_DATE[1] >= 0 && this.data.SANCTION_DATE[1] <= 9 && this.data.SANCTION_DATE[3] >= 0 && this.data.SANCTION_DATE[3] <= 9 && this.data.SANCTION_DATE[4] >= 0 && this.data.SANCTION_DATE[4] <= 9 && this.data.SANCTION_DATE[9] >= 0 && this.data.SANCTION_DATE[9] <= 9 && this.data.SANCTION_DATE[8] >= 0 && this.data.SANCTION_DATE[8] <= 9 && this.data.SANCTION_DATE[7] >= 0 && this.data.SANCTION_DATE[7] <= 9 && this.data.SANCTION_DATE[6] >= 0 && this.data.SANCTION_DATE[6] <= 9) {
 
@@ -932,7 +932,12 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
           }
           else {
 
-            // 👇 file नाही पण तरी save करायचं आहे
+            this.data.SANCTION_FILE = '';   // file नाही म्हणून रिकामं
+            this.REMARKS = this.REMARKS || ''; // undefined नको
+            this.data.SANCTION_DATE = this.data.SANCTION_DATE || this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+
+
+            //  file नाही पण तरी save करायचं आहे
             this.saveData();
             this.close();
             // if (this.fileDataFile1 == null)
@@ -976,7 +981,7 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
       this.data.RESOLUTION_NO != undefined && this.data.RESOLUTION_NO != 0 &&
       this.data.RATE_OF_INTEREST != undefined &&
       this.data.SANCTION_AMOUNT != undefined && this.data.SANCTION_AMOUNT != 0 &&
-      this.data.SIGNATURE != undefined && this.data.SIGNATURE != ''
+      this.data.SIGNATURE != undefined && this.data.SIGNATURE != '' && this.data.REF_NO != undefined && this.data.REF_NO != 0
     ) {
       // Validate date format manually
       const d = this.data.SANCTION_DATE;
@@ -1761,95 +1766,130 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
   //   }
   // }
 
+  // saveData() {
+  //   if ((this.data.SANCTION_FILE?.trim() || '') !== '') {
+  //     this.isButtonSpinning = true
+  //     let nextStageId = 21
+  //     // ////console.log(nextStageId, this.data.ID)
+  //     this.api.passToMainBranch2(this.data.SIGNATURE, this.data.COMMITTEE_NO, this.data.AMOUNT_IN_WORDS, this.data.TERM_OF_LOAN,
+  //       this.data.TYPE_OF_INSTALLMENT, this.data.EMI_AMOUNT, this.data.RESOLUTION_NO, this.data.RATE_OF_INTEREST,
+  //       this.data.SANCTION_DATE, this.data.SANCTION_AMOUNT, this.data.ID, this.data.CURRENT_STAGE_ID,
+  //       nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO, this.data.REF_NO, this.data.REMARK)
+  //       .subscribe(successCode => {
+  //         // ////console.log(successCode)
+  //         this.isButtonSpinning = false
+  //         if (successCode['code'] == "200") {
+  //           // this.drawerClose()
+  //           this.logtext = 'SubmitProposal - Submit Proposal form - SUCCESS ' + "Stage Id" + nextStageId + JSON.stringify(this.data) + " KEYWORD [U - ApplicantDocument ]";
+  //           this.api.addLog('A', this.logtext, this.api.emailId)
+  //             .subscribe(successCode => {
+  //               if (successCode['code'] == "200") {
+  //                 // ////console.log(successCode);
+  //               }
+  //               else {
+  //                 // ////console.log(successCode);
+
+  //               }
+  //             });
+
+  //           this.userActivityLogData.USER_ID = Number(sessionStorage.getItem('userId'))
+  //           this.userActivityLogData.ACTIVITY_DETAILS = " SubmitProposal -   Submit Proposal " + "Stage Id" + nextStageId + JSON.stringify(this.data)
+  //           this.userActivityLogData.ACTIVITY_TIME = new Date()
+  //           this.api.createUserActivityLog(this.userActivityLogData)
+  //             .subscribe(successCode => {
+  //               if (successCode['code'] == "200") {
+  //                 // ////console.log(successCode);
+  //               }
+  //               else {
+  //                 // ////console.log(successCode);
+
+
+  //               }
+  //             });
+  //           this.message.success(this.api.translate.instant('common.message.success.addinfo'), "");
+  //           this.close()
+  //         }
+  //         else {
+
+  //           this.isButtonSpinning = false
+
+  //           this.logtext = ' SubmitProposal -  Submit Proposal form - ERROR - ' + "Stage Id" + nextStageId + "Json" + JSON.stringify(this.data) + " KEYWORD [U - JoinedBranch ]";
+  //           this.api.addLog('A', this.logtext, this.api.emailId)
+  //             .subscribe(successCode => {
+  //               if (successCode['code'] == "200") {
+  //                 // ////console.log(successCode);
+  //               }
+  //               else {
+  //                 // ////console.log(successCode);
+
+
+  //               }
+  //             });
+  //           this.userActivityLogData.USER_ID = Number(sessionStorage.getItem('userId'))
+  //           this.userActivityLogData.ACTIVITY_DETAILS = " SubmitProposal -  Submit Proposal Failed" + "Stage Id" + nextStageId + JSON.stringify(this.data)
+  //           this.userActivityLogData.ACTIVITY_TIME = new Date()
+  //           this.api.createUserActivityLog(this.userActivityLogData)
+  //             .subscribe(successCode => {
+  //               if (successCode['code'] == "200") {
+  //                 // ////console.log(successCode);
+  //               }
+  //               else {
+  //                 // ////console.log(successCode);
+  //               }
+  //             });
+  //           this.message.error(this.api.translate.instant('common.message.error.failed'), "");
+
+  //           this.isButtonSpinning = false
+
+  //         }
+  //       });
+  //   } else {
+  //     this.message.error(this.api.translate.instant('passtomainbranch.message1'), "");
+  //   }
+  // }
+
+
   saveData() {
-    if (this.data.SANCTION_FILE.trim() != '') {
-      this.isButtonSpinning = true
-      let nextStageId = 21
-      // ////console.log(nextStageId, this.data.ID)
-      this.api.passToMainBranch2(this.data.SIGNATURE, this.data.COMMITTEE_NO, this.data.AMOUNT_IN_WORDS, this.data.TERM_OF_LOAN,
-        this.data.TYPE_OF_INSTALLMENT, this.data.EMI_AMOUNT, this.data.RESOLUTION_NO, this.data.RATE_OF_INTEREST,
-        this.data.SANCTION_DATE, this.data.SANCTION_AMOUNT, this.data.ID, this.data.CURRENT_STAGE_ID,
-        nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE, this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO, this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT, this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS, this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2, this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO)
-        .subscribe(successCode => {
-          // ////console.log(successCode)
-          this.isButtonSpinning = false
-          if (successCode['code'] == "200") {
-            // this.drawerClose()
-            this.logtext = 'SubmitProposal - Submit Proposal form - SUCCESS ' + "Stage Id" + nextStageId + JSON.stringify(this.data) + " KEYWORD [U - ApplicantDocument ]";
-            this.api.addLog('A', this.logtext, this.api.emailId)
-              .subscribe(successCode => {
-                if (successCode['code'] == "200") {
-                  // ////console.log(successCode);
-                }
-                else {
-                  // ////console.log(successCode);
+  // File upload use होत नाही म्हणून SANCTION_FILE default रिकामं ठेवा
+  this.data.SANCTION_FILE = this.data.SANCTION_FILE || '';
 
-                }
-              });
+  this.isButtonSpinning = true;
+  let nextStageId = 21;
 
-            this.userActivityLogData.USER_ID = Number(sessionStorage.getItem('userId'))
-            this.userActivityLogData.ACTIVITY_DETAILS = " SubmitProposal -   Submit Proposal " + "Stage Id" + nextStageId + JSON.stringify(this.data)
-            this.userActivityLogData.ACTIVITY_TIME = new Date()
-            this.api.createUserActivityLog(this.userActivityLogData)
-              .subscribe(successCode => {
-                if (successCode['code'] == "200") {
-                  // ////console.log(successCode);
-                }
-                else {
-                  // ////console.log(successCode);
+  this.api.passToMainBranch2(
+    this.data.SIGNATURE, this.data.COMMITTEE_NO, this.data.AMOUNT_IN_WORDS,
+    this.data.TERM_OF_LOAN, this.data.TYPE_OF_INSTALLMENT, this.data.EMI_AMOUNT,
+    this.data.RESOLUTION_NO, this.data.RATE_OF_INTEREST, this.data.SANCTION_DATE,
+    this.data.SANCTION_AMOUNT, this.data.ID, this.data.CURRENT_STAGE_ID,
+    nextStageId, this.REMARKS, Number(this.userId), this.data.PROPOSAL_FILE,
+    this.data.SANCTION_FILE, this.data.MOROTORIUM, this.data.MEETING_NO,
+    this.data.LOAN_RELEASE_DATE, this.data.DISBURSED_AMOUNT,
+    this.data.LOAN_AMOUNT_IN_WORDS, this.data.LOAN_AMOUNT_IN_WORDSS,
+    this.data.INSTALLMENT_COUNT, this.data.HAND_WRITTEN_AMT_IN_WORDS2,
+    this.data.WRITTEN_TOTALAMT_WORDS, this.data.ACCOUNT_NO, this.data.REF_NO,
+    this.data.REMARK
+  ).subscribe(successCode => {
+    this.isButtonSpinning = false;
 
-
-                }
-              });
-            this.message.success(this.api.translate.instant('common.message.success.addinfo'), "");
-            this.close()
-          }
-          else {
-
-            this.isButtonSpinning = false
-
-            this.logtext = ' SubmitProposal -  Submit Proposal form - ERROR - ' + "Stage Id" + nextStageId + "Json" + JSON.stringify(this.data) + " KEYWORD [U - JoinedBranch ]";
-            this.api.addLog('A', this.logtext, this.api.emailId)
-              .subscribe(successCode => {
-                if (successCode['code'] == "200") {
-                  // ////console.log(successCode);
-                }
-                else {
-                  // ////console.log(successCode);
-
-
-                }
-              });
-            this.userActivityLogData.USER_ID = Number(sessionStorage.getItem('userId'))
-            this.userActivityLogData.ACTIVITY_DETAILS = " SubmitProposal -  Submit Proposal Failed" + "Stage Id" + nextStageId + JSON.stringify(this.data)
-            this.userActivityLogData.ACTIVITY_TIME = new Date()
-            this.api.createUserActivityLog(this.userActivityLogData)
-              .subscribe(successCode => {
-                if (successCode['code'] == "200") {
-                  // ////console.log(successCode);
-                }
-                else {
-                  // ////console.log(successCode);
-                }
-              });
-            this.message.error(this.api.translate.instant('common.message.error.failed'), "");
-
-            this.isButtonSpinning = false
-
-          }
-        });
+    if (successCode['code'] == "200") {
+      this.message.success(this.api.translate.instant('common.message.success.addinfo'), "");
+      this.close();
     } else {
-      this.message.error(this.api.translate.instant('passtomainbranch.message1'), "");
+      this.message.error(this.api.translate.instant('common.message.error.failed'), "");
     }
-  }
+  });
+}
 
+
+
+  
 
 
   saveOnlyWithoutStageChange() {
     if (this.data.SANCTION_FILE?.trim() != '') {
       this.isButtonSpinning = true;
 
-      let nextStageId = this.data.CURRENT_STAGE_ID; // 👈 Stage change नको म्हणून
+      let nextStageId = this.data.CURRENT_STAGE_ID; // No Stage change
 
       this.api.passToMainBranch2(
         this.data.SIGNATURE,
@@ -1864,7 +1904,7 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
         this.data.SANCTION_AMOUNT,
         this.data.ID,
         this.data.CURRENT_STAGE_ID,
-        nextStageId, // 👈 याच stage वरच ठेवले
+        nextStageId, // stage same
         this.REMARKS,
         Number(this.userId),
         this.data.PROPOSAL_FILE,
@@ -1878,7 +1918,9 @@ export class BoardapprovalComponent implements OnInit, OnChanges {
         this.data.INSTALLMENT_COUNT,
         this.data.HAND_WRITTEN_AMT_IN_WORDS2,
         this.data.WRITTEN_TOTALAMT_WORDS,
-        this.data.ACCOUNT_NO
+        this.data.ACCOUNT_NO,
+        this.data.REF_NO,
+        this.data.REMARK
       ).subscribe(successCode => {
         this.isButtonSpinning = false;
         if (successCode['code'] == "200") {

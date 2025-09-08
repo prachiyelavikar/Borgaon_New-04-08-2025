@@ -57,7 +57,7 @@ export class ReportMasterComponent implements OnInit {
 
   edit(data: Reports): void {
     
-    if(data.FLAG == '6' || data.FLAG == '7' || data.FLAG == '8' || data.FLAG == '1' || data.FLAG == '14' || data.FLAG == '15' || data.FLAG == '16'){
+    if(data.FLAG == '6' || data.FLAG == '7' || data.FLAG == '8' || data.FLAG == '1' || data.FLAG == '14' || data.FLAG == '15' || data.FLAG == '16' || data.FLAG == '18'){
       this.drawerVisible = true;
       this.filterReports.REPORT_PRAMS.REPORT_ID = data.FLAG
       this.filterReports.getAllLists();

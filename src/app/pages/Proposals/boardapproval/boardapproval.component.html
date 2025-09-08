@@ -10,6 +10,18 @@
     </div>
     <div nz-col nzSpan="6" *ngIf="STATUS=='A'">
         <nz-form-item>
+            <nz-form-label nzRequired nzNoColon>{{ 'REF_NO' | translate}}
+            </nz-form-label>
+            <nz-form-control>
+                <nz-input-number style="width: 100%;" name="REF_NO" [(ngModel)]="data.REF_NO" [nzMin]="1" [nzStep]="1">
+                </nz-input-number>
+
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div nz-col nzSpan="18"></div>
+    <div nz-col nzSpan="6" *ngIf="STATUS=='A'">
+        <nz-form-item>
             <nz-form-label nzRequired nzNoColon>{{ 'basicinfo.t2' | translate}}
             </nz-form-label>
             <nz-form-control>
@@ -278,6 +290,16 @@
 
         </div>
 
+        <div nz-col nzSpan="12" *ngIf="STATUS=='A'">
+            <nz-form-item>
+                <nz-form-label nzRequired nzNoColon>{{ 'REMARK' | translate}}
+                </nz-form-label>
+                <nz-form-control>
+                    <textarea nz-input name="REMARK" type="text" [(ngModel)]="data.REMARK" [nzAutosize]="{ minRows: 1, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
         <!-- <div nz-col nzSpan="6" *ngIf="STATUS=='A'">
         <nz-form-item>
             <nz-form-label nzNoColon>{{ 'loaninfomation.term_for_loan' | translate}}
@@ -343,10 +365,10 @@
         <!-- <button type="button" style="margin-right: 10px;" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="saveRefill()"><span>{{ 'basicinfo.m5' |
             translate}}</span></button> -->
 
-        <button type="button" *ngIf="STATUS=='A'" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="save1()"><span>{{'Save & Close 1'}}</span></button>
+        <button type="button" *ngIf="STATUS=='A'" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="save1()"><span>{{'Save & Close'}}</span></button>&nbsp;
 
 
-        <button type="button" *ngIf="STATUS=='A'" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="save()"><span>{{'paymentapproval.saveclosebutton'|translate}}</span></button>
+        <button type="button" *ngIf="STATUS=='A'" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="save()"><span>{{'Save & Verify'|translate}}</span></button>
 
         <button *ngIf="STATUS=='F'" type="button" class="ant-btn ant-btn-primary" nz-button [nzLoading]="isButtonSpinning" (click)="save()"><span>{{'common_text.footer_btn6'|translate}}</span></button>
 
@@ -1158,6 +1180,8 @@
             </nz-form-control>
         </nz-form-item>
     </div>
+
+
 
 
     <div class="footer">
